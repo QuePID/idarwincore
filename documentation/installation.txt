@@ -1,0 +1,190 @@
+Installation Instructions For iDarwinCore
+
+Server Configurations
+
+iDarwinCore requires a few things in order to be operational. This includes a properly configured MySQL server, Apache server, and PHP.
+
+This database package has been extensively tested with Apache 2.4, MySQL 5.7, and PHP 7.
+
+I highly recommend WAMP64 for windows as it is easy to update and saves quite a bit of hassle in setting up these servers independently.
+
+In order to use all of iDarwinCore's features you will want to make a few modifications to your servers.
+
+PHP
+
+I suggest changing the following settings in your php.ini:
+
+max_execution_time = 3600;
+file_uploads = On
+upload_tmp_dir ="d:/wamp64/tmp"; (or whatever your server's tmp folder is.)
+upload_max_filesize = 100M;
+default_socket_timeout = 300;
+max_input_time = 120;
+memory_limit = 300M;
+
+The above settings allow your scripts to execute for up to an hour, and permits you to upload files up to 100 mb, along with 
+permitting sockets to wait up to 300 seconds before giving up, allows the script to parse input for up to 2 minutes, and for PHP 
+to utilize up to 300 MB of physical memory.
+
+MySQL
+
+I suggest changing the following settings in your my.ini (or my.cnf):
+
+secure_file_priv="d:/wamp64/tmp"
+sql-mode=""
+
+Secure_file_priv setting defines a directory from which you can import files into the MySQL database. You will want to set this 
+as your system (or servers) tmp folder location. This must be the absolute path location and not a relative path. The sql-mode 
+setting turns off several strict modes that are by default set as on. It is important to turn off strict mode as you most likely 
+will be importing data into MySQL which has dates set as such: 0000-00-00 for various fields.
+
+Downloading iDarwinCore
+
+iDarwinCore is available for download from GitHub. You can download it as a zip file from this location, or if you have git 
+installed you can install it directly using git.
+
+Installing iDarwinCore
+
+You will want to unzip the zip file you downloaded from github.com into your webserver's root folder.
+
+Rename the folder from idarwincore-master to idarwincore.
+
+In a text editor open connect.sample.php and edit dbhost, dbuser, dbpass for your MySQL server, and save the file as connect.php.
+
+In a text editor open common.sample.php and edit the file to customize for your needs, and save the file as common.php
+
+In a text editor open setup_database.sample.php, being sure to change dbhost, dbuser, and dbpass to your particular MySQL 
+server settings, and save the file as setup_database.php
+
+You are now ready to create the database and it's tables. Open a web browser and in the address bar put the location of your webserver (eg. http://localhost/idarwincore/setup_database.php) and press enter. It may take a few minutes to install all the tables.
+
+Congratulations! You have installed iDarwinCore!
+
+If you encountered an error, you can review your servers log files to diagnose the situation. You should also test your 
+php's installation with phpinfo command (google phpinfo for more info).
+
+How To Use iDarwinCore
+
+Prepping Data for iDarwinCore
+
+iDarwinCore requires Symbiota DwC-A Zip File, and in addition can optionally import a Remote Images File List, and Local 
+Images File list
+
+(1) Symbiota DwC-A Zip File
+(2) Remote Images File List
+(3) Local Images File List
+(4) Barcode List
+(5) Blocked List
+
+You will first need to make a folder called dwca inside your system or server's tmp folder (for mac users it is usually /Library/WebServer/Documents/tmp, for WAMP users it is usually C:/wamp64/tmp). You only have to do this once.
+
+The only mandatory file for use of iDarwinCore is the Symbiota DwC-A Zip File. The other files provide a more robust use of 
+iDarwinCore functions.
+
+The Symbiota DwC-A Zip File can be downloaded from the Symbiota portal which hosts your data. Look under Administrative 
+Control Panel for a link labeled "Download Backup".
+
+The Remote Images File List is a text file that contains a list of all images hosted on a remote server (such as iPlant/CyVerse). 
+If you are using iPlant/CyVerse, then this list can be obtained by using iCommands. iCommands is available for many different 
+platforms including Linux, Unix, Mac OS X, and Windows. You will need to know the path to your files on whatever remote system you 
+are using. Simply install iCommands, configure as instructed from the iCommands website, and then open a terminal (command prompt) 
+and issue the command ils -Lr (path_to_your_folde_and_files_on_the_remote_system) > iplant_t.txt. This constructs a file 
+called iplant_t.txt which contains the full image path and filename along with other important iPlant info.
+
+The Local Images File List is a txt file containing a list of all local specimen images. This can be obtained by opening a 
+command prompt and changing directory to the root imaging folder and typing dir /s /b > nDrive.txt. For Mac OS users, you will 
+generate your nDrive.txt with the following command find (path_to_your_folders_or_files) -type f > nDrive.txt. This will construct 
+a file called nDrive.txt which contains the full path and file location for your specimens images.
+
+The Barcode List is a list of all barcodes purchased for your collection. This list can usually be produced with ease in excel and 
+saved as a text file.
+
+The Blocked List is a list of taxa in which you desire the locality and image to be hidden from the general public. This should be a 
+csv with four fields: Family, ScientificName, ScientificNameAuthorship, TaxonID. This list can be exported from a Symbiota checklist.
+
+Importing Symbiota Portal Data
+
+In order to use iDarwinCore, you need to load it with your data
+
+The first files you want to install (if available) are the iplant_t.txt, nDrive.txt, barcodes.txt, and blockedlist.txt. These files 
+can be imported by clicking on the Setup menu and choosing the appropriate menu item to upload the particular file(s) you may have.
+
+iDarwinCore can import your Symbiota DwC-A backup files along with the files you placed in the "dwca" folder. To download the 
+DwC-A backup file log into the symbiota portal that is hosting the data you are interested in importing, and download a backup of 
+your data. Next open idarwincore up in your web browser (eg. http://localhost/idarwincore/) and click on Setup menu at the top, and 
+then on Import DwC-A File.
+
+Click on "Choose file" button and browse to the symbiota backup file you downloaded and click on it and then click on the 
+"Upload" button.
+
+The script can take a few minutes to import all your data along with generating new data tables. The script provides some feedback 
+as to what it is processing on your screen.
+
+Once finished you should have 11 tables within your idarwincore database.
+
+Using iDarwinCore
+
+iDarwinCore creates and utilizes a few MySQL data tables
+
+(1) Occurrences - A list of all specimen occurrence records
+(2) Identifications - A list of all annotations to occurrence records
+(3) Images - A list of all image links
+(4) Blocked - A list of specimens of special concern to which locality data will be hidden in queries
+(5) Barcodes- A list of all your barcodes (optional)
+(6) NoSkeletalRecords - A list of occurrence records in which there exists only a catalogNumber and image file
+(7) iPlant - A list of all images, image paths, and barcodes found on iPlant
+(8) Duplicates - A list of duplicate occurrence records
+(9) nDrive - A list of all images, image paths, and barcodes found in your local image storage
+(10) ImageSys - A list of all occurrence records with images, which includes the occurrence record information 
+along with image file paths, and filenames
+(11) Occurrences_Full - A list similar to ImageSys but also includes all the local image file paths and filenames
+
+iDarwinCore Menu Options
+
+SEARCH
+
+Search Collection - Allows you to query the Occurrence Records for fields such as Family, State/Province, County, Genus, Species,
+Accession #, Collector, Collection #, and Barcode. Output will be displayed in paginated table, with the id field being a hotlink 
+to occurrence editor of the Symbiota portal. Note this feature hides images, and locality data for taxa present in the blockedlist
+table.
+
+Admin Search - Allows you to query the Occurrence Records for fields such as Family, State/Province, County, Genus, Species, 
+Accession #, Collector, Collection #, and Barcode. Output will be displayed in paginated table, with the id field being a hotlink 
+to occurrence editor of the Symbiota portal. Note this feature does not hide images or locality data for taxa present in the 
+blockedlist table
+
+Search By Family - Allows you to browse the Occurrence Records. This feature starts by displaying all the plant families within 
+the occurrence records. You can then click on a family, which then displays a list of all genera, you can then click on a genus, 
+in which it will display all species belonging to that genus held in the occurrence records.
+
+Show County Records - Allows you to enter the genus, species, and state. A list of counties within your chosen state in which the 
+taxa you chose are present in the occurrence records.
+
+SHOW TABLES
+
+Show Tables - Allows you to peruse the contents of any of the 11 tables listed above
+
+DIAGNOSTICS
+
+Jump To SernecPortal Record - This allows you to enter an OCCID (occurrence record id) for SernecPortal and to be taken to 
+the occurrence editor for that particular occurrence record id.
+
+Search iPlant By Barcode - This allows you to enter a barcode and retrieve the iPlant Data Service Links information (which 
+contains iPlant file location, guid, etc.)
+
+Show Duplicate Records - Displays a list of all duplicate occurrence records (see above in regards to Duplicate Table)
+
+Database Statistics - This generates several lists, such as: unique record statistics for several tables, displays a list of 
+duplicates based on occurrence id (in occurrences table), displays duplicates based on catalogNumber (aka barcode in occurrences 
+table), displays a list of duplicates based on otherCatalogNumbers (aka Accession# in occurrences table), displays duplicates 
+based on coreid (Image Table), display a list of barcoded specimens (in occurrences table) without corresponding image file, 
+displays a list of barcodes of invalid length (in occurrences table), displays a list of invalid barcodes (in occurrence table), 
+and displays a list of barcodes (in occurrence records) for which no label data exists. Clicking on any item in any of these 
+lists takes one to the occurrence editor on SernecPortal.
+
+Log Image Records XML to File - This takes a list of barcodes and requests information via iPlant's Data Service for each 
+barcode and stores the iPlant data service data (xml data) to a file in /idarwincore/xmls/ folder.
+
+DOCUMENTATION
+
+Installation Instructions - Shows how to install iDarwinCore and configure MySQL/Apache/PHP for best results.
