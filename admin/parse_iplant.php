@@ -59,16 +59,16 @@ if ($handle_in) {
          echo "<br>";*/
 		 
          //find the position at which .jpg occurs within the line string
-         $pos = strpos($linearray[8],'.jpg');
+         $pos = strpos($linearray[12],'.jpg');
 
          //set the position to the left 14 characters of where .jpg occurs in the line
          $pos = ($pos - 14);
 
          //read fourteen characters at position set to coincide with where barcode occurs in the line, set this information to the bcode variable
-         $bcode = substr($linearray[8], $pos, 14);
+         $bcode = substr($linearray[12], $pos, 14);
 
          //create a line out string which we will dump to the iplantdwca.txt file
-         $lineout = "\"$linearray[4]\",\"$linearray[8]\",\"$bcode\"$lterms";
+         $lineout = "\"$linearray[4]\",\"$linearray[12]\",\"$bcode\"$lterms";
          //display the lineout varaible [diagnostic]
          //echo "$lineout \n";
          
