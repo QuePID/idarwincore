@@ -17,7 +17,7 @@ echo '<br>';
 //print a horizontal line
 echo '<hr>';
 //print information about the software, author, along with contact information
-echo '<center><strong>iDarwinCore Version 1.0</strong></center>';
-echo '<center><strong>Copyright 2016 by Robert R. Pace (robert.pace@eku.edu)</strong></center>';
+echo '<center><strong>iDarwinCore Version 1.1</strong></center>';
+echo '<center><strong>Copyright 2017 by Robert R. Pace (robert.pace@eku.edu)</strong></center>';
 echo '</body>';
 ?>
