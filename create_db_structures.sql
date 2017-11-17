@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS idarwincore2;
-USE idarwincore2;
+CREATE DATABASE IF NOT EXISTS idarwincore;
+USE idarwincore;
 CREATE TABLE `barcodes` (
   `barcodes` varchar(33) DEFAULT NULL,
   KEY `barcodes` (`barcodes`)
