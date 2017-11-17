@@ -281,7 +281,7 @@ while ($bcounter4 < $bfipscount) {
 	//close the first script
  echo "</script>\n";	  
 ?>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqd74MnywQPSMiiX1g6T_oSrDA21_RYv0&callback=initMap">
+    <script async defer src="Put Your Google Maps Javascript API Key Here.">
     </script>
   </body>
 </html>
