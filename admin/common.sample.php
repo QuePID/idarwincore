@@ -82,7 +82,7 @@ $dwcarootPath = realpath('C:/wamp64/www/idarwincore/dwca/');
 $dwcameta = "c:/wamp64/www/idarwincore/dwca/meta.xml";
 $dwcaeml = "c:/wamp64/www/idarwincore/dwca/eml.xml";
 $exportdbfile = 'c:/wamp64/www/idarwincore/admin/create_db_structures.sql';
-$measurementorfact = 'c:/wamp64/tmp/dwca/measurementorfact.sql';
+$measurementorfact = 'c:/wamp64/tmp/dwca/measurementOrFact.sql';
 
 //Define your colors for the alternating rows and headers
 //$color1 & $color2 are for alternating rows, wheras
