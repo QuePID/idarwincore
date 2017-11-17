@@ -47,6 +47,7 @@ In a text editor open common.sample.php and edit the file to customize for your 
 
 You are now ready to create the database and it's tables. If you have phpmyadmin installed you can use it to setup the iDarwinCore database tables by using it's import feature and selecting the create_db_structures.sql file. If you do not have phpmyadmin installed then you can use the mysql.exe command line interface with the command mysql -u root -p < c:/wamp64/www/idarwincore/create_db_structures.php. You will be prompted for the password to the wamp server. You will also want to import the counties database using phpmyadmin or using the mysql command interface via mysql -u root -p < c:/wamp64/www/idarwincore/counties_db/counties_db.sql
 You will also need to create /idarwincore/admin/dwca folder which will be used to generate DwC-A exports.
+You will also need to create /idarwincore/admin/dwca folder which will be used to generate DwC-A exports.
 Congratulations! You have installed iDarwinCore!
 
 It is highly recommended that you password protect the admin folder, this can be done via .htaccess .
