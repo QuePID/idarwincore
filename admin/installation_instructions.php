@@ -48,6 +48,7 @@ include("common.php");
 
 <p>You are now ready to create the database and it's tables.  If you have phpmyadmin installed you can use it to setup the iDarwinCore database tables by using it's import feature and selecting the create_db_structures.sql file.  If you do not have phpmyadmin installed then you can use the mysql.exe command line interface with the command mysql -u root -p < c:/wamp64/www/idarwincore/create_db_structures.php.  You will be prompted for the password to the wamp server.  You will also want to import the counties database using phpmyadmin or using the mysql command interface via mysql -u root -p < c:/wamp64/www/idarwincore/counties_db/counties_db.sql</p>
 <p>You will also need to create /idarwincore/admin/dwca folder which will be used to generate DwC-A exports.</p>
+<p>If you plan on using the distribution mapping functions you will need to signup for a free Google Maps Javascript API key and insert it into the "display_county_maps.php" found in the /idarwincore/ and also in /idarwincore/admin/ folders.</p>
 <p>Congratulations!  You have installed iDarwinCore!</p>
 
 <p>It is highly recommended that you password protect the admin folder, this can be done via .htaccess .</p>
