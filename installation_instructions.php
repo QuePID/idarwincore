@@ -8,7 +8,7 @@ include("common.php");
 <br>
 <h2>Server Configurations</h2>
 <p>iDarwinCore requires a few things in order to be operational.  This includes a properly configured MySQL server, Apache server, and PHP.</p>
-<p>This database package has been extensively tested with Apache 2.4, MySQL 5.7, and PHP 7.</p>
+<p>This database package has been extensively tested with Apache 2.4, MySQL 5.7, and PHP 7.1.</p>
 
 <p>I highly recommend <a href="http://www.wamp.com">WAMP64</a> for windows as it is easy to update and saves quite a bit of hassle in setting up these servers independently.</p>
 <p>In order to use all of iDarwinCore's features you will want to make a few modifications to your servers.</p>
@@ -46,13 +46,11 @@ include("common.php");
 
 <p>In a text editor open common.sample.php and edit the file to customize for your needs, and save the file as common.php</p>
 
-<p>In a text editor open setup_database.sample.php, being sure to change dbhost, dbuser, and dbpass to your particular MySQL server settings, and save the file as setup_database.php</p>
+<p>You are now ready to create the database and it's tables.  If you have phpmyadmin installed you can use it to setup the iDarwinCore database tables by using it's import feature and selecting the create_db_structures.sql file.  If you do not have phpmyadmin installed then you can use the mysql.exe command line interface with the command mysql -u root -p < c:/wamp64/www/idarwincore/create_db_structures.php.  You will be prompted for the password to the wamp server.  You will also want to import the counties database using phpmyadmin or using the mysql command interface via mysql -u root -p < c:/wamp64/www/idarwincore/counties_db/counties_db.sql</p>
+<p>You will also need to create /idarwincore/admin/dwca folder which will be used to generate DwC-A exports.</p>
+<p>Congratulations!  You have installed iDarwinCore!</p>
 
-<p>You are now ready to create the database and it's tables.  Open a web browser and in the address bar put the location of your webserver (eg. http://localhost/idarwincore/setup_database.php) and press enter.  It may take a few minutes to install all the tables.</p>
-
-<p>If you want to use species distribution mapping you will need to import the counties.sql file (county_db folder) into the MySQL idarwincore database (see MySQL or PHPMyAdmin for directions on how to import a database table in .sql format).</p>
-
-<p>Congratulations!  You have installed iDarwinCore!</p></p>
+<p>It is highly recommended that you password protect the admin folder, this can be done via .htaccess .</p>
 
 <p>If you encountered an error, you can review your servers log files to diagnose the situation.  You should also test your php's installation with phpinfo command (google phpinfo for more info).</p>
 

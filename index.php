@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*IDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -29,10 +29,9 @@ include("common.php");
 <br><br>
 <p><center><h1><strong><u>Welcome to iDarwinCore @ <?php include("common.php"); echo $university; ?></u></strong></h1></center></p>
 <br>
-<p><h3>The EKU Herbarium (EKY) contains ~77,000 specimens and is the largest collection in Kentucky, and the second largest in the Kentucky-Tennessee region (surpassed only by the University of Tennessee). Most specimens are from central and eastern Kentucky, but also there is a good representation of western Kentucky and of the southeastern United States. There is also a set of woody plant specimens recently collected in Costa Rica. Nearly all specimens are of vascular plants. A number of important sets of specimens are housed at EKY, including sets from Lilley Cornett Woods, Maywoods Environmental and Educational Laboratory, Pine Mountain, Breaks Interstate Park, Brodhead Swamp, the headwater regions of the Green River, collections from the Kentucky State Nature Preserves Commission, collections of Mary Wharton, E.T. Browne, Raymond Athey, and county collections from Madison, Estill, Jackson, and Garrard Counties.</h3></p>
+<p><h3><center>Welcome to iDarwinCore.  Here you will put a description of your utilization of iDarwinCore by simply editing the index.php file.</center></h3></p>
 <br><br>
-<p><center><a href="http://herbarium.eku.edu/">Click Here For More Information On Our Herbarium</a></strong></center></p>
-<p><center><a href="http://sernecportal.org/portal/collections/harvestparams.php?&jsoncollstarr={%22db%22:%22193;%22}">Click Here To Search Our Collection On SernecPortal</a></center></p>
+
 <br>
 </body>
 </html>

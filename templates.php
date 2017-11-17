@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -28,14 +28,9 @@ include("common.php");
 ?>
 
 <br><br><br>
-<center><a href="./templates/iknew_template.xlsm">IKnew Lite Template (No Taxon Lookups)</a></center>
+<center><a href="./templates/iDwCA_Workbook.xlsm">iDarwinCore Excel Template for entering specimen record data.</a></center>
 <br>
-<center><a href="./templates/iknew_template_with_taxon.xlsm">IKnew Complete Template with Taxon Lookups</a></center>
-<br>
-<center><a href="./templates/Symbiota_template_v1.4a.xlsm">Symbiota Template with Taxon Lookups(Version 1.4a)</a></center>
-<br>
-<center><a href="./templates/Symbiota_MailMerge.docx">Symbiota MailMerge Form - Use this to print herbarium labels from the Symbiota Excel Template (must not have cell formulas in excel sheet)</a></center><br>
-<center><a href="./templates/EKY_MailMerge.docx">IKnew MailMerge Form - Use this to print herbarium labels from the Excel Templates (must not have cell formulas in excel sheet)</a></center><br>
+<center><a href="./templates/DarwinCore_MailMerge.docx">iDarwinCore MailMerge Form - Use this to print herbarium labels from the iDarwinCore Excel Template.</a></center><br>
 <br><br><br>
 
 <?php

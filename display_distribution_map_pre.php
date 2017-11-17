@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -39,99 +39,69 @@ $DKstate = (isset($_GET['stateProvince']) ? $_GET['stateProvince'] : null);
 //undesirable code passed to GET
 $searchgenus = mysqli_real_escape_string($mysqli,$DKgenus);
 $searchspecies = mysqli_real_escape_string($mysqli,$DKspecies);
-$searchstate = mysqli_real_escape_string($mysqli,$DKstate);
+$searchstates = mysqli_real_escape_string($mysqli,$DKstate);
 
-//time to build query string from the cleansed variables
-$query = "SELECT DISTINCT(county) FROM occurrences WHERE (stateProvince = \"$searchstate\") and (genus = \"$searchgenus\") and (specificEpithet = \"$searchspecies\")";
-//echo "query is $query<br>";
+//determine how many states we need process
+$states = explode(",",$searchstates);
+$scount = substr_count($searchstates, ",");
 
-//run the query or die trying
-$results = mysqli_query($conn, $query) or die("MySQL Error..." . (mysqli_error($conn)));
+$fipsfinal='';
+$counter = 0;
+$ccounter = 0;
+$fcounter = 0;
+$bfcounter = 0;
+$bfipsfinal = 0;
 
-//define a new variable counties as an array
-$counties = array();
-$fips = array();
-
-//define two new counters and set them to zero
-$counter = '0';
-$counter2 = '0';
-
-//parse all results one by one
-while ($row = mysqli_fetch_array($results)) {
-    //set the array counties to the result returned
-	$counties[$counter] = $row[0];
-
-    //Build a query which will retrieve the fips codes given the state/county name.
-	$query2 = "SELECT DISTINCT(fips) FROM `counties` WHERE (stateProvince = \"$searchstate\") and (county = \"$row[0]\")";
-	//echo "query2 is $query2<br><br>";
-	//retrieve the query results and store in to the rows2 array
-	$results2 = mysqli_query($conn, $query2) or die("MySQL Error..." . (mysqli_error($conn)));
-    //parse each county name returning the fips code
-	while ($row2 = mysqli_fetch_array($results2)){
-    //store fips from the mysql results
-	$fips[$counter2] = $row2[0];
-    //go to the next result returned by mysql until finished
-	$counter2++;
-	}
-	//go to next result returned by mysql until finished
-	$counter++;
-}
-//break the array down into comma separated values which can be stored in $countylist variable
-$fipslist = implode(",", $fips);
-
-//filter out double commas in the counties list
-$fipslist2 = preg_replace('/,+/', ',', $fipslist);
-
-//strip out any commas at the end of the string
-$fipslistfinal = rtrim($fipslist2,',');
-
-// ****************************** repeat the sequence above to generate the bfips list *****************************************
-$counter3 = '0';
-$counter4 = '0';
-
-$bquery = "SELECT fips FROM `counties` WHERE ((stateProvince = \"$searchstate\") and (fips NOT IN ($fipslistfinal)))";
-//echo "bquery is $bquery<br>";
-
-if (empty($fipslistfinal)) {
-	echo "<br><br><br><br><center>No occurrence records were found within $searchstate for <b>$searchgenus $searchspecies<b></center><br>";
-	} else {
+while($scount >= $counter) {
+	$s1query = "SELECT DISTINCT(county) FROM `occurrences` WHERE (`occurrences`.`stateProvince` = \"$states[$counter]\") AND (genus = \"$searchgenus\") AND (specificEpithet = \"$searchspecies\")";
+	$s1results = mysqli_query($conn, $s1query);
 	
-	$bresults = mysqli_query($conn, $bquery) or die("MySQL Error... ($bquery)" . (mysqli_error($conn)));
-
-	while ($brow = mysqli_fetch_array($bresults)) {
-		//set the array counties to the result returned
-		$bfips[$counter3] = $brow[0];
-		//go to next result returned by mysql until finished
-		$counter3++;
-	}
-	//break the array down into comma separated values which can be stored in $countylist variable
-	$bfipslist = implode(",", $bfips);
-
-	//filter out double commas in the counties list
-	$bfipslist2 = preg_replace('/,+/', ',', $bfipslist);
-
-	//strip out any commas at the end of the string
-	$bfipslistfinal = rtrim($bfipslist2,',');
-
-	//echo "bfipslistfinal is $bfipslistfinal<br><br><br>";
-	//build a url string which will be stored in the $url variable
-	$url = $urlthree . 'display_county_map.php?fips=' . $fipslistfinal. '&bfips=' . $bfipslistfinal .'&state='.$searchstate;
-
-	//echo "url is $url<br><br>";
-	//Diagnostically dump all defined variables to screen
-	//echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
-
-	//create a simple javascript to open the url above in existing web browser window
-	echo "<script>";
-	echo "window.open('$url','_self',false);"."PHP_EOL";
-	echo "</script>";
-	//echo "fipslistfinal = $fipslistfinal<br";
-	//display footer
+	while ($row = mysqli_fetch_assoc($s1results)) {
+		$counties[$ccounter] = $row['county'];
+		$ccounter++;
+		}
+	
+	$s2query = "SELECT DISTINCT(fips) FROM `counties` WHERE (stateProvince = \"$states[$counter]\")  AND (`county` IN ('" . implode("', '", $counties) . "')) ORDER BY fips ASC";
+	$s2results = mysqli_query($conn, $s2query);
+	
+	while ($frow = mysqli_fetch_assoc($s2results)) {
+		$fips[$fcounter] = $frow['fips'];
+		$fcounter++;
+		}
+	
+	$bfipsquery = "SELECT DISTINCT(fips) FROM `counties` WHERE (stateProvince = \"$states[$counter]\")  AND (`fips` NOT IN ('" . implode("', '", $fips) . "')) ORDER BY fips ASC";
+	$bfresults = mysqli_query($conn, $bfipsquery);
+	
+	while($bfrow = mysqli_fetch_assoc($bfresults)) {
+		$bfips[$bfcounter] = $bfrow['fips'];
+		$bfcounter++;
+		}
+	
+	$row = '';
+	$frow = '';
+	$bfrow ='';
+	$s1results = '';
+	$s2results = '';
+	$bfresults = '';
+	$bfcounter = '';
+	$ccounter = 0;
+	$fcounter = 0;
+	
+	$fipsfinal = $fipsfinal . "," . implode(",", $fips);
+	$bfipsfinal = $bfipsfinal . "," . implode(",", $bfips);
+	$counter++;
+	
 }
+
+$fipsfinal = substr($fipsfinal,1);
+$bfipsfinal = substr($bfipsfinal,2);
+$bfipsfinal = $str = implode(',',array_unique(explode(',', $bfipsfinal)));
+$url = $urlthree . 'display_county_map.php?fips=' . $fipsfinal. '&bfips=' . $bfipsfinal;
+
+//create a simple javascript to open the url above in existing web browser window
+echo "<script>";
+echo "window.open('$url','_self',false);"."PHP_EOL";
+echo "</script>";
 
 include_once("footer.php");
 ?>
-</div>
-
-</body>
-</html>

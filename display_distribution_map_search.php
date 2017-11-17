@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -25,12 +25,13 @@ include("common.php");
 <br>
 <center><strong><h2>Query For A Distribution Map</h2></strong></center>
 <hr><br>
-
+<center>You can enter more than one state as long as they are comma separated, and no spaces!.</center>
+<br><br>
 <form action="display_distribution_map_pre.php" method="get">
 <center><table style="border-collapse: collapse;"></center>
 <tr><td bgcolor="#C5C5C5"><center><strong>Genus: </strong><input type="text" size="4" name="genus" style="width: 241px" /></center></td></tr>
 <tr><td bgcolor="#9D9D9D"><center><strong>Species: </strong><input type="text" size="4" name="specificEpithet" style="width: 241px" /></center></td></tr>
-<tr><td bgcolor="#C5C5C5"><center><strong>State: </strong><input type="text" size="4" name="stateProvince" style="width: 241px" /></center></td></tr>
+<tr><td bgcolor="#C5C5C5"><center><strong>State(s): </strong><input type="text" size="4" name="stateProvince" style="width: 341px" /></center></td></tr>
 <tr><td bgcolor="#9D9D9D"><center><input type="submit" /></center></td></tr>
 </form>
 </table>

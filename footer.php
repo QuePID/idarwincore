@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -17,7 +17,7 @@ echo '<br>';
 //print a horizontal line
 echo '<hr>';
 //print information about the software, author, along with contact information
-echo '<center><strong>iDarwinCore Version 1.0</strong></center>';
+echo '<center><strong>iDarwinCore version 1.1</strong></center>';
 echo '<center><strong>Copyright 2016 by Robert R. Pace (robert.pace@eku.edu)</strong></center>';
 echo '</body>';
 ?>

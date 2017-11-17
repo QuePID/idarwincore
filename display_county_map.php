@@ -21,7 +21,7 @@
 <script>
 function initMap() {
 var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 5,
+    zoom: 4,
     center: {lat: 38.9, lng: -94.7},
     mapTypeId: 'terrain'
 });
@@ -72,6 +72,9 @@ $bfipscount = count($bfipslist);
 $numcounties = '0';
 $numfips = '0';
 $numbfips = '0';
+$coordinates = '';
+$counter2 = 0;
+$counter = 0;
 
 //this while loop will start at zero and end at $countycount to ensure that every county is processed
 while ($numfips < $fipscount) {
@@ -81,7 +84,7 @@ while ($numfips < $fipscount) {
     $processfips = @$fipslist[$numfips];
   	
 	//build query string using the currently designated county (courtesy of the $processcounty variable)
-	$query = "SELECT * FROM `counties` WHERE (stateProvince = \"$state\") AND (`fips` = \"$processfips\")";
+	$query = "SELECT * FROM `counties` WHERE `fips` = \"$processfips\"";
 	//Retrieve results of query from MySQL Server
 	$result = mysqli_query($conn, $query) or die("MySQL Error..." . (mysqli_error($conn)));
 
@@ -281,7 +284,7 @@ while ($bcounter4 < $bfipscount) {
 	//close the first script
  echo "</script>\n";	  
 ?>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqd74MnywQPSMiiX1g6T_oSrDA21_RYv0&callback=initMap">
+    <script async defer src="put your google maps api key here">
     </script>
   </body>
 </html>
