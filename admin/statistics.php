@@ -1,5 +1,5 @@
 <?PHP
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -62,7 +62,7 @@ $querytoshort = "SELECT catalogNumber FROM occurrences WHERE (LENGTH(catalogNumb
 $querydisparity2 = "SELECT `catalogNumber` FROM `occurrences` WHERE (`occurrences`.`catalogNumber`> 1) AND ((`occurrences`.`catalogNumber` NOT IN (SELECT `barcodes`.`barcodes` FROM `barcodes`)))";
 
 //MySQL Query for occurrence records that have images and occurrence records only having otherCatalogNumbers and catalogNumbers holding data
-$querykeystrokeimages = "SELECT catalogNumber FROM `occurrences_full` WHERE (`catalogNumber` > 1) AND ((`otherCatalogNumbers` IS NOT NULL) AND (`otherCatalogNumbers` !='')) AND ((`scientificName` IS NULL) OR (`scientificName` = '')) ORDER BY `catalogNumber` ASC";
+$querykeystrokeimages = "SELECT catalogNumber FROM `occurrences` WHERE (`catalogNumber` > 1) AND ((`otherCatalogNumbers` IS NOT NULL) AND (`otherCatalogNumbers` !='')) AND ((`scientificName` IS NULL) OR (`scientificName` = '')) ORDER BY `catalogNumber` ASC";
 $resultskeystrokeimages = mysqli_query($conn,$querykeystrokeimages) or die ('Could not connect to mysqli(querykeystrokeimages): ' . mysqli_error($conn));
 $rckeystrokeimages = mysqli_num_rows($resultskeystrokeimages) or die ('Could not connect to mysqli(resultkeystrokeimages): ' . mysqli_error($conn));
 

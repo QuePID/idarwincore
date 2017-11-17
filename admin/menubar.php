@@ -28,12 +28,11 @@
       <a href="paginator.php?tablename=duplicates">Duplicates</a>
       <a href="paginator.php?tablename=identifications">Identifications</a>
       <a href="paginator.php?tablename=images">Images</a>
-      <a href="paginator.php?tablename=imagesys">ImageSYS</a>
       <a href="paginator.php?tablename=iplant">iPlant</a>
+      <a href="paginator.php?tablename=measurementOrFact">measurementOrFact</a>
       <a href="paginator.php?tablename=ndrive">nDrive</a>
       <a href="paginator.php?tablename=noskeletalrecords">No Skeletal Record</a>
       <a href="paginator.php?tablename=occurrences">Occurrences</a>
-      <a href="paginator.php?tablename=occurrences_full">Occurrences Full</a>
     </div>
   </div>
   <div class="dropdown">
@@ -50,7 +49,10 @@
     <a href="#" class="dropbtn">Tools</a>
     <div class="dropdown-content">
       <a href="truncate_all_tables.php">Empty All iDarwinCore Tables</a>
-      <a href="fixindices.php">Fix Table Indices</a>
+      <a href="dwca_export.php">Export DwC-A File</a>
+      <a href="add_indexes.php">Add Table Indexes</a>
+      <a href="cleanup_indexes.php">Delete All Indexes</a>
+      <a href="export_all_table_structures.php">Export iDarwincore Table Structures</a>
     </div>
   </div>
 <div class="dropdown">

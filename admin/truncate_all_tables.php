@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -29,12 +29,12 @@ $emptyq2 = "TRUNCATE TABLE blockedlist";
 $emptyq3 = "TRUNCATE TABLE duplicates";
 $emptyq4 = "TRUNCATE TABLE identifications";
 $emptyq5 = "TRUNCATE TABLE images";
-$emptyq6 = "TRUNCATE TABLE imagesys";
 $emptyq7 = "TRUNCATE TABLE iplant";
 $emptyq8 = "TRUNCATE TABLE ndrive";
 $emptyq9 = "TRUNCATE TABLE noskeletalrecords";
 $emptyq10 = "TRUNCATE TABLE occurrences";
-$emptyq11 = "TRUNCATE TABLE occurrences_full";
+$emptyq11 = "TRUNCATE TABLE measurementorfact";
+
 
 //execute the above defined queries while checking for potential errors
 $result1 = mysqli_query($conn, $emptyq1) or die("MySQL Error...(emptyq1)" . (mysqli_error($conn)));
@@ -42,7 +42,6 @@ $result2 = mysqli_query($conn, $emptyq2) or die("MySQL Error...(emptyq2)" . (mys
 $result3 = mysqli_query($conn, $emptyq3) or die("MySQL Error...(emptyq3)" . (mysqli_error($conn)));
 $result4 = mysqli_query($conn, $emptyq4) or die("MySQL Error...(emptyq4)" . (mysqli_error($conn)));
 $result5 = mysqli_query($conn, $emptyq5) or die("MySQL Error...(emptyq5)" . (mysqli_error($conn)));
-$result6 = mysqli_query($conn, $emptyq6) or die("MySQL Error...(emptyq6)" . (mysqli_error($conn)));
 $result7 = mysqli_query($conn, $emptyq7) or die("MySQL Error...(emptyq7)" . (mysqli_error($conn)));
 $result8 = mysqli_query($conn, $emptyq8) or die("MySQL Error...(emptyq8)" . (mysqli_error($conn)));
 $result9 = mysqli_query($conn, $emptyq9) or die("MySQL Error...(emptyq9)" . (mysqli_error($conn)));

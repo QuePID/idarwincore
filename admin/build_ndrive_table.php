@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -19,20 +19,18 @@
 //
 
 
-include("connect.php");
-include("common.php");
+include_once("connect.php");
+include_once("common.php");
+include_once("functions.php");
 
 //select the database we are going to be using
 mysqli_select_db($conn, $dbname);
 
-//build a query that will delete the ndrive table
-$dropquery = "DROP TABLE IF EXISTS ndrive";
+//drop table
+dwca_drop_table('ndrive', $conn);
 
 //build a query that will create the ndrive table
 $createquery = "CREATE TABLE IF NOT EXISTS ndrive (file VARCHAR(255), ncatalogNumber VARCHAR(16))";
-
-//execute the query via MysQL that will drop the table
-$dropresults = mysqli_query($conn, $dropquery) or die("MySQL Error in deleting the ndrive table..." . (mysqli_error($conn)));
 
 //execute the query via MysQL that will drop the table
 $createresults = mysqli_query($conn, $createquery) or die("MySQL Error in creating the ndrive table..." . (mysqli_error($conn)));
@@ -40,31 +38,10 @@ $createresults = mysqli_query($conn, $createquery) or die("MySQL Error in creati
 //build a query string that will have MySQL load Data from a file into the ndrive table
 $query1 = "LOAD DATA INFILE \"$ndrivejpegs\" INTO TABLE ndrive FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY \"$lterms\"";
 
-//this query string will add an index on ncatalogNumber field
-$query2 = "ALTER TABLE `ndrive` ADD INDEX `ncatalogNumber` (`ncatalogNumber`)";
+//load ndrive table
+load_dwca_table($ndrive, $query1, 'ndrive', $conn);
 
-//execute the query through MySQL that will insert ndrive_jpegs_with_paths.txt file into the ndrive table
-if (file_exists($ndrive)) {
-	$result1 = mysqli_query($conn, $query1) or die ('Could not connect to mysqli (loading ndrive): ' . mysqli_error($conn));
-
-	//execute the query through MySQL that will insert ndrive_jpegs_with_paths.txt file into the ndrive table
-
-	//execute the query through MySQL that will add an index (ncatalogNumber) to ndrive table
-	$result2 = mysqli_query($conn, $query2) or die ('Could not connect to mysqli (adding index on ncatalogNumber field): ' . mysqli_error($conn));
-
-	//let the user know the process has concluded
-	echo "<h3><center><strong><i>Ndrive Table</i> was populated.</strong></center></h3>";
-
-	//flush the buffers so that the above echo command appears before the mysql queries
-	ob_flush();
-	flush();
-
-} else {
-	echo "<center><strong>Skipping the addition of ndjpegs table as file isn't present in <i>dwca</i> folder</strong></center>";
-//flush the buffers so that the above echo command appears before the mysql queries
-ob_flush();
-flush();
-}
-
+//add indexes
+idarwincore_add_index('ndrive', 'ncatalogNumber', $conn);
 
 ?>

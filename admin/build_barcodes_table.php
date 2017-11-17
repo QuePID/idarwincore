@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -19,20 +19,18 @@
 //
 
 
-include("connect.php");
-include("common.php");
+include_once("connect.php");
+include_once("common.php");
+include_once("functions.php");
 
 //select the database we are going to be using
 mysqli_select_db($conn, $dbname);
 
-//build a query that will delete the ndrive table
-$dropquery = "DROP TABLE IF EXISTS barcodes";
+//drop barcodes table
+dwca_drop_table('barcodes', $conn);
 
 //build a query that will create the ndrive table
 $createquery = "CREATE TABLE IF NOT EXISTS barcodes (barcodes VARCHAR(33))";
-
-//execute the query via MysQL that will drop the table
-$dropresults = mysqli_query($conn, $dropquery) or die("MySQL Error in deleting the barcodes table..." . (mysqli_error($conn)));
 
 //execute the query via MysQL that will drop the table
 $createresults = mysqli_query($conn, $createquery) or die("MySQL Error in creating the barcodes table..." . (mysqli_error($conn)));
@@ -40,18 +38,11 @@ $createresults = mysqli_query($conn, $createquery) or die("MySQL Error in creati
 //build a query string that will have MySQL load Data from a file into the ndrive table
 $query1 = "LOAD DATA INFILE \"$barcodesfile\" INTO TABLE `barcodes` FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY \"$lterms\"";
 
-//this query string will add an index on ncatalogNumber field
-$query2 = "ALTER TABLE `barcodes` ADD INDEX `barcodes` (`barcodes`)";
-
 //execute the query through MySQL that will insert ndrive_jpegs_with_paths.txt file into the ndrive table
 if (file_exists($barcodesfile)) {
 	$result1 = mysqli_query($conn, $query1) or die ('Could not connect to mysqli (loading barcodes): ' . mysqli_error($conn));
-
-	//execute the query through MySQL that will insert ndrive_jpegs_with_paths.txt file into the ndrive table
-
-	//execute the query through MySQL that will add an index (ncatalogNumber) to ndrive table
-	$result2 = mysqli_query($conn, $query2) or die ('Could not connect to mysqli (adding index on barcodes field): ' . mysqli_error($conn));
-
+  //add index to table
+  idarwincore_add_index('barcodes', 'barcodes', $conn);
 	//let the user know the process has concluded
 	echo "<h3><center><strong><i>Barcodes Table</i> was populated.</strong></center></h3>";
 

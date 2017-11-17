@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -67,7 +67,7 @@ while($row1 = mysqli_fetch_array($fieldnames))
 echo '</tr></center>';
 while($row = mysqli_fetch_row($result))  
 {
-	$row_color = ($row_count % 2) ? $color1 : $color2;
+	@$row_color = ($row_count % 2) ? $color1 : $color2;
 	echo '<tr>';
 	FOREACH($row AS $cell) echo "<td bgcolor=$row_color>$cell</td>\n";
 	echo '</tr>';

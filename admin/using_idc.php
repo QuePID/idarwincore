@@ -43,12 +43,13 @@ include("common.php");
 <p>(3) <strong>Images</strong> - A list of all image links</p>
 <p>(4) <strong>Blocked</strong> - A list of specimens of special concern to which locality data will be hidden in queries</p>
 <p>(5) <strong>Barcodes</strong>- A list of all your barcodes (optional)</p>
-<p>(6) <strong>NoSkeletalRecords</strong> - A list of occurrence records in which there exists only a catalogNumber and image file</p>
-<p>(7) <strong>iPlant</strong> - A list of all images, image paths, and barcodes found on iPlant</p>
-<p>(8) <strong>Duplicates</strong> - A list of duplicate occurrence records</p>
-<p>(9) <strong>nDrive</strong> - A list of all images, image paths, and barcodes found in your local image storage</p>
-<p>(10) <strong>ImageSys</strong> - A list of all occurrence records with images, which includes the occurrence record information along with image file paths, and filenames</p>
-<p>(11) <strong>Occurrences_Full</strong> - A list similar to ImageSys but also includes all the local image file paths and filenames</p>
+<p>(6) <strong>MeasurentOrFact</strong>- A list of phenology and facts associated with records</p>
+<p>(7) <strong>NoSkeletalRecords</strong> - A list of occurrence records in which there exists only a catalogNumber and image file</p>
+<p>(8) <strong>iPlant</strong> - A list of all images, image paths, and barcodes found on iPlant</p>
+<p>(9) <strong>Duplicates</strong> - A list of duplicate occurrence records</p>
+<p>(10) <strong>nDrive</strong> - A list of all images, image paths, and barcodes found in your local image storage</p>
+<p>(11) <strong>Counties</strong>- A list of states/counties and fips codes utilized in drawing distribution maps</p>
+
 
 <p><strong><u>iDarwinCore Menu Options</u></strong></p>
 <p><strong>SEARCH</strong></p>
@@ -64,6 +65,12 @@ include("common.php");
 <p><strong>Show Duplicate Records</strong> - Displays a list of all duplicate occurrence records (see above in regards to Duplicate Table)</p>
 <p><strong>Database Statistics</strong> - This generates several lists, such as: unique record statistics for several tables, displays a list of duplicates based on occurrence id (in occurrences table), displays duplicates based on catalogNumber (aka barcode in occurrences table), displays a list of duplicates based on otherCatalogNumbers (aka Accession# in occurrences table), displays duplicates based on coreid (Image Table), display a list of barcoded specimens (in occurrences table) without corresponding image file, displays a list of barcodes of invalid length (in occurrences table), displays a list of invalid barcodes (in occurrence table), and displays a list of barcodes (in occurrence records) for which no label data exists.  Clicking on any item in any of these lists takes one to the occurrence editor on SernecPortal.</p>
 <p><strong>Log Image Records XML to File</strong> - This takes a list of barcodes and requests information via iPlant's Data Service for each barcode and stores the iPlant data service data (xml data) to a file in /idarwincore/xmls/ folder.</p>
+<p><strong>TOOLS</strong></p>
+<p><strong>Add Indexes</strong> - This allows you to add indexes to the mysql database which can speed up queries.</p>
+<p><strong>Delete All Indexes</strong> - This allows you to delete all indexes for the iDarwinCore database.</p>
+<p><strong>Empty All iDarwinCore Tables</strong>- This deletes all records in all the iDarwinCore database except for the counties table.</p>
+<p><strong>Export DwC-A File</strong>- Export iDarwinCore database to a DwC-A (DarwinCore Archive Zip File).</p>
+<p><strong>Export DarwinCore Table Structures</strong>- This will export the iDarwinCore table structures to a .sql file which can be utilized to rebuild the table structure.</p>
 <p><strong>DOCUMENTATION</strong></p>
 <p><strong>Installation Instructions</strong> - Shows how to install iDarwinCore and configure MySQL/Apache/PHP for best results.</p>
 <p><strong>Using iDarwinCore</strong> - (what you are currently reading)</p>

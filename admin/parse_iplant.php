@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -52,23 +52,25 @@ if ($handle_in) {
 
          //explode the line fetched from file, trim off all extra spaces, and assign to an array
          $linearray = array_map('trim',explode(" ",$line));
-         
 		 //diagnostic to tell which array elements
-		 /*echo "<br";
-		 print_r($linearray);
-         echo "<br>";*/
-		 
+		 //echo "<br";
+		 //print_r($linearray);
+     //echo "<br>";
+		 	//Determine which style the ILS listing for a particular file is using (with jpeg image tab or without) and
+		 	//set the appropriate linearray element (the one which contains the filepath and image filename
+		 	if(($linearray[8] =='jpeg') && ($linearray[9] == 'image')) 
+		 	{ $element = 13; } ELSE { $element = 12; }
          //find the position at which .jpg occurs within the line string
-         $pos = strpos($linearray[12],'.jpg');
+         @$pos = strpos($linearray[$element],'.jpg');
 
          //set the position to the left 14 characters of where .jpg occurs in the line
          $pos = ($pos - 14);
 
          //read fourteen characters at position set to coincide with where barcode occurs in the line, set this information to the bcode variable
-         $bcode = substr($linearray[12], $pos, 14);
+         @$bcode = substr($linearray[$element], $pos, 14);
 
          //create a line out string which we will dump to the iplantdwca.txt file
-         $lineout = "\"$linearray[4]\",\"$linearray[12]\",\"$bcode\"$lterms";
+         @$lineout = "\"$linearray[4]\",\"$linearray[$element]\",\"$bcode\"$lterms";
          //display the lineout varaible [diagnostic]
          //echo "$lineout \n";
          

@@ -1,5 +1,5 @@
 <?php
-/*IDarwinCore version 1.0
+/*iDarwinCore version 1.1
   By Robert R. Pace <robert.pace@eku.edu>
   
   This database software is designed for natural
@@ -19,20 +19,18 @@
 //
 
 
-include("connect.php");
-include("common.php");
+include_once("connect.php");
+include_once("common.php");
+include_once("functions.php");
 
 //select the database we are going to be using
 mysqli_select_db($conn, $dbname);
 
-//build a query that will delete the iplant table
-$dropquery = "DROP TABLE IF EXISTS iplant";
+//drop iplant table
+dwca_drop_table('iplant', $conn);
 
 //build a query that will create the iplant table
 $createquery = "CREATE TABLE IF NOT EXISTS iplant (guid VARCHAR(33), ifile VARCHAR(255), barcode VARCHAR(15))";
-
-//execute the query via MysQL that will drop the table
-$dropresults = mysqli_query($conn, $dropquery) or die("MySQL Error in deleting the iplant table..." . (mysqli_error($conn)));
 
 //execute the query via MysQL that will drop the table
 $createresults = mysqli_query($conn, $createquery) or die("MySQL Error in creating the iplant table..." . (mysqli_error($conn)));
@@ -43,25 +41,15 @@ $query = "LOAD DATA INFILE \"$iplantjpegs\" INTO TABLE iplant FIELDS TERMINATED 
 //this query string will fill ncatalogNumber with crude barcode data.  UPDATE iplant SET ncatalogNumber=(substring(file,-18, 14))
 $query1 = "UPDATE iplant SET barcode=(substring(ifile,-18, 14))";
 
-//this query string will add an index on guid field
-$query2 = "ALTER TABLE `iplant` ADD INDEX `guid` (`guid`)";
-
-//this query string will add an index on ncatalogNumber field
-$query3 = "ALTER TABLE `iplant` ADD INDEX `barcode` (`barcode`)";
-
 //execute the query through MySQL that will insert iplantdwca.txt file into the iplant table
 if (file_exists($iplant_t)) {
 	$result = mysqli_query($conn, $query) or die ('Could not connect to mysqli (loading iplant file): ' . mysqli_error($conn));
 
 	//execute the query through MySQL that will insert iplantdwca.txt file into the iplant table
 	$result1 = mysqli_query($conn, $query1) or die ('Could not connect to mysqli (populating barcode field): ' . mysqli_error($conn));
-  
-  //execute the query string through MySQL that will create an index on guid field
-  $result2 = mysqli_query($conn, $query2) or die ('Could not connect to mysqli (adding index on guid): ' . mysqli_error($conn));
-
-  //execute the query string through MySQL that will create an index on guid field
-  $result3 = mysqli_query($conn, $query3) or die ('Could not connect to mysqli (adding index on ncatalogNumber): ' . mysqli_error($conn));
-
+	//add indexes
+  idarwincore_add_index('iplant', 'guid', $conn);
+  idarwincore_add_index('iplant', 'barcode', $conn);
 	//let the user know the process has concluded
 	echo "<h3><center><strong><i>iPlant Table</i> was populated.</strong></center></h3>";
 
