@@ -4,6 +4,8 @@ the display of a natural history collection's data
 in a very organic way.  The data can be queried via 
 a variety of fields such as genus/species/state/province/county/
 collector/collection number/catalog number/accession number, etc.
+Also county level distribution maps can now be generated on the fly from
+specimen occurrence data.
 
 This database package is also extremely useful in diagnosing issues with
 Symbiota databases.  Simply export the Symbiota data to DwC-A format, and
