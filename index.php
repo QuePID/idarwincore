@@ -29,7 +29,7 @@ include("common.php");
 <br><br>
 <p><center><h1><strong><u>Welcome to iDarwinCore @ <?php include("common.php"); echo $university; ?></u></strong></h1></center></p>
 <br>
-<p><h3><center>Welcome to iDarwinCore.  Here you will put a description of your utilization of iDarwinCore by simply editing the index.php file.</center></h3></p>
+<p><h3><center>Welcome to iDarwinCore.  Here you will put a description of your project by simply editing the index.php file.</center></h3></p>
 <br><br>
 
 <br>
