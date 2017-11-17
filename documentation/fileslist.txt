@@ -19,15 +19,17 @@ connect.php - Holds all the MySQL credentials and database name used for PHP to 
 connect.sample.php - Sample connect.php file which will be edited to form connect.php.
 display.php - Displays MySQL query results produced from various other PHP files (script is partnered with search.php, search_counties, browser_family.php, browser_genera.php, browser_species.php, display_counties.php)
 display_counties.php - Displays a list of counties given a state and taxon (script is partnered with search_counties.php and display.php).
+display_county_map.php - Displays a county map using Google Maps Javascript API.
+display_distribution_map_pre.php - Constructs the necessary data to construct the map and passes this data to the display_county_map.php
+display_distribution_map_search - Displays a query in which you choose the genus, species, and states that you want to display a distribution map of.
 favicon.ico - Icon used by browser.
 fgsi_count.php - Displays a count of all imaged specimens in alphabetic order by family/genus/species/infraspecific epithet.
-fixindices.php - Adds indices to various MySQL tables which facilitate faster query times, normally the build scripts listed above handle indexing the table, sometimes if an error occurs in the building of tables this script is needed.
 footer.php - Displays a footer at the bottom of each page.
 header.php - Displays a header at the top of each page, also sets various HTML settings for iDarwinCore.
 header_sample.php - Sample header file which when edited becomes the header.php file.
 index.php - Main start page of iDarwinCore.
 installation_instructions.php - Documentation showing installation of iDarwinCore using PHP/MySQL/Apache.
-jquery-3.1.0.min.js - JavaScript package which assists in building tables and pagination.
+jquery-3.2.1.min.js - JavaScript package which assists in building tables and pagination.
 main.css - Main Cascading Style Sheet for iDarwinCore, necessary for formatting of display (table formatting, pull down menus).
 menubar.php - Contains the pull down menu selections for iDarwinCore.
 occid.php - Given a occurrence id, it opens up SernecPortal's occurrence editor for that particular occurrence id (script is partnered with occid_search.php).
@@ -37,10 +39,7 @@ parse_iplant.php - Parses the iplant_t.txt file to produce iplantdwca.txt that w
 parse_ndrive.php - Parses the nDrive.txt file to produce ndjpegs_with_paths.txt that will be imported into the MySQL database by build_ndrive_table.php (script is partnered with build_ndrive_table.php).
 search.php - Allows input such as genus, species, state/Province, county, collector, collection number, catalogNumber, otherCatalogNumbers which are then passed to the display.php for query and display of results (script is partnered with display.php).
 search_counties.php - Allows input of genus, species, and state which are then passed to display_counties.php (script is partnered with display_counties.php).
-setup_database.php - Builds the initial iDarwinCore MySQL database and tables, is usually ran only once then this file is often deleted).
-setup_database.sample.php - Sample file which is edited and saved to setup_database.php.
 showdupes.php - Displays the output of the duplicates MySQL Table (script is partnered with build_duplicates_table.php).
-shownoskeletalrecords.php - Displays the contents of the noskeletalrecords MySQL table (script is partnered with build_duplicates_table.php).
 simplecsv.php - Used to build and populate most of the iDarwinCore MySQL tables by calling the various build_xxxxxx_table.php files (script is partnered with build_barcodes_table.php, build_blockedlist_table.php, build_blockedlist_table.php, build_duplicates_table.php, build_imagesys_table.php, build_iplant_table.php, build_ndrive_table.php and build_occurrences_full_table.php).
 statistics.php - Provides detailed record of all unique and duplicate records present within iDarwinCore using a plethora of MySQL queries.
 supersearch.php - Allows input such as genus, species, state/Province, county, collector, collecton number, catalogNumber, otherCatalogNumbers which are then passed to the admindisplay.php (script is partnered with admindisplay.php).
@@ -54,8 +53,14 @@ upload_iplant_t_txt.php - Allows you to select the iplant_t.txt file you wish to
 upload_ndrive_txt.php - Allows you to select the ndrive.txt file you wish to upload (script is partnered with txtuploader.php).
 using_idc.php - Documentation showing the various iDarwinCore functions.
 zipupload.php - Allows you to select, upload, and uncompress a DwC-A backup zip file, it then executes the simplecsv.php to populate the iDarwinCore MySQL database tables (script is partnered with simplecsv.php).
+/documentation/filelist.txt - This file.
+/documentation/how_to_use_iDarwinCore.txt - Documents the function of iDarwinCore menu items.
+/documentation/installation.txt - iDarwinCore installation instructions.
+/documentation/readme.txt - Information about iDarwinCore.
 /images/comingsoon.jpg - Place holder image used when there are no image thumbnails for the record.
 /images/headerimage.jpg - Default header image for iDarwinCore.
 /xmls/logxml.php - Records the XML output of the Bisque Data Service information for each identifier field present in the images table to a file.
 /xmls/logxml_from_barcodefile.php Records the XML output of the Bisque Data Service information given a text file containing barcodes.
 logxml_from_file.php - Records the XML output of the Bisque Data Service information given a text (or csv) file containing the identifier field to an output file showing good and bad data service call links.
+/template/DarwinCore_MailMerge.docx - This is a MS Word document which reads data from the iDwCA_Workbook to print specimen labels.
+/template/iDwCA_Workbook - This macro enabled excel workbook can be used as a field notebook in which one records their specimen data, and in conjunction with the DarwinCore_MailMerge.docx can be used to print specimen labels.
