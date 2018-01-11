@@ -53,10 +53,8 @@ $DKbfips = (isset($_GET['bfips']) ? $_GET['bfips'] : null);
 $DKstate = (isset($_GET['state']) ? $_GET['state'] : null);
 
 //clean the variable against any malicious code injection
-$county = mysqli_real_escape_string($mysqli,$DKcounty);
 $fips = mysqli_real_escape_string($mysqli, $DKfips);
 $bfips = mysqli_real_escape_string($mysqli, $DKbfips);
-$state = mysqli_real_escape_string($mysqli, $DKstate);
 
 //explode string into an array
 $countylist = explode(",", $county);
@@ -64,7 +62,6 @@ $fipslist = explode(",", $fips);
 $bfipslist = explode(",", $bfips);
 
 //count how many counties are in the array
-$countycount = count($countylist);
 $fipscount = count($fipslist);
 $bfipscount = count($bfipslist);
 
@@ -80,8 +77,7 @@ $counter = 0;
 while ($numfips < $fipscount) {
 
 	//this is the name of the county currently being processed
-	$processcounty = @$countylist[$numfips];
-    $processfips = @$fipslist[$numfips];
+        $processfips[] = $fipslist[$numfips];
   	
 	//build query string using the currently designated county (courtesy of the $processcounty variable)
 	$query = "SELECT * FROM `counties` WHERE `fips` = \"$processfips\"";
@@ -96,7 +92,7 @@ while ($numfips < $fipscount) {
 	$longitude = array();
 
 	//while there are results from MySQL do the following with each
-	while (@$row = mysqli_fetch_array($result)){
+	while ($row = mysqli_fetch_array($result,MYSQLI_BOTH)){
 	
 	// store the mysql column "coordinates" data in the $coordstring variable
 	$coordstring = $row["coordinates"];
@@ -159,7 +155,7 @@ $counter4 = '0';
 while ($counter4 < $fipscount) {
 	
 	//defines new county list (eg county1, county2, county3) array so we can display as (eg county1, county2, county3)
-	@$fipslist = $fipslist . $fips.[$counter4] . ",";
+	$fipslist[] = $fips[$counter4];
     //create new map polygon
 	echo "var fipspoly" . $counter4 . " = new google.maps.Polygon({\n";	
 	echo "\tpaths: " . "fips" . $counter4 . ",\n";
@@ -181,9 +177,7 @@ while ($counter4 < $fipscount) {
 while ($numbfips < $bfipscount) {
 
 	//this is the name of the county currently being processed
-	$processcounty = @$countylist[$numfips];
-  $processfips = @$fipslist[$numfips];
-	$processbfips = @$bfipslist[$numbfips];
+	$processbfips[] = $bfipslist[$numbfips];
   	
 	//build query string using the currently designated county (courtesy of the $processcounty variable)
 	$bquery = "SELECT * FROM `counties` WHERE `fips` = \"$processbfips\"";
@@ -199,7 +193,7 @@ while ($numbfips < $bfipscount) {
 	$blongitude = array();
 
 	//while there are results from MySQL do the following with each
-	while (@$brow = mysqli_fetch_array($bresult)){
+	while (@$brow = mysqli_fetch_array($bresult, MYSQLI_BOTH)){
 	
 	// store the mysql column "coordinates" data in the $coordstring variable
 	$bcoordstring = $brow["coordinates"];
@@ -262,7 +256,7 @@ $bcounter4 = '0';
 while ($bcounter4 < $bfipscount) {
 	
 	//defines new county list (eg county1, county2, county3) array so we can display as (eg county1, county2, county3)
-	@$bfipslist = $bfipslist . $bfips.[$bcounter4] . ",";
+	$bfipslist[] = $bfips[$bcounter4];
     //create new map polygon
 	echo "var bfipspoly" . $bcounter4 . " = new google.maps.Polygon({\n";	
 	echo "\tpaths: " . "bfips" . $bcounter4 . ",\n";
