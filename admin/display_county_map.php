@@ -89,11 +89,11 @@ while ($numfips < $fipscount) {
 	
 	// store the mysql column "coordinates" data in the $coordstring variable
 	$coordstring = $row["coordinates"];
-    // Parse individual elements of the coordinates string into an array
+        // Parse individual elements of the coordinates string into an array
 	$coordinates = explode("," , $coordstring);
-    // how big is our array?
+        // how big is our array?
 	$size = count($coordinates) ;
-    // set a counter which we will use to read every element of the coordinates
+        // set a counter which we will use to read every element of the coordinates
 	$counter = 0;
 
 		// read precisely the number of coordinate elements and parse the coordinate elements into either longitude or latitude (the coordinates string always starts with longitude then latitude)
@@ -146,29 +146,27 @@ $counter4 = '0';
 
 //Create the script code which controls the visual nature of the polygon
 while ($counter4 < $fipscount) {
-	
-	//defines new county list (eg county1, county2, county3) array so we can display as (eg county1, county2, county3)
-	$fipslist[] = $fips[$counter4];
-    //create new map polygon
-	echo "var fipspoly" . $counter4 . " = new google.maps.Polygon({\n";	
-	echo "\tpaths: " . "fips" . $counter4 . ",\n";
-    echo "\tstrokeColor: '#000000',\n";
-    echo "\tstrokeOpacity: 1,\n";
-    echo "\tstrokeWeight: 2,\n";
-    echo "\tfillColor: '#5E213B',\n";
-    echo "fillOpacity: 0.35\n";
-	echo "});\n\n";
-	//add the county track path to the actual map
-	echo "fipspoly" . $counter4 . ".setMap(map);\n\n";
-	$counter4++;
-	//close the first while loop (processing of counties)
+   //defines new county list (eg county1, county2, county3) array so we can display as (eg county1, county2, county3)
+   $fipslist[] = $fips[$counter4];
+   //create new map polygon
+   echo "var fipspoly" . $counter4 . " = new google.maps.Polygon({\n";	
+   echo "\tpaths: " . "fips" . $counter4 . ",\n";
+   echo "\tstrokeColor: '#000000',\n";
+   echo "\tstrokeOpacity: 1,\n";
+   echo "\tstrokeWeight: 2,\n";
+   echo "\tfillColor: '#5E213B',\n";
+   echo "fillOpacity: 0.35\n";
+   echo "});\n\n";
+   //add the county track path to the actual map
+   echo "fipspoly" . $counter4 . ".setMap(map);\n\n";
+   $counter4++;
+   //close the first while loop (processing of counties)
 }
 
 // *********************************** Replicate Looping Above For Background Fips ************************************
 
 //this while loop will start at zero and end at $countycount to ensure that every county is processed
 while ($numbfips < $bfipscount) {
-
 	//this is the name of the county currently being processed
 	$processbfips = @$bfipslist[$numbfips];
   	
@@ -188,14 +186,14 @@ while ($numbfips < $bfipscount) {
 	//while there are results from MySQL do the following with each
 	while ($brow = mysqli_fetch_array($bresult,MYSQLI_BOTH)){
 	
-	// store the mysql column "coordinates" data in the $coordstring variable
-	$bcoordstring = $brow["coordinates"];
-        // Parse individual elements of the coordinates string into an array
-	$bcoordinates = explode("," , $bcoordstring);
-        // how big is our array?
-	$bsize = count($bcoordinates) ;
-        // set a counter which we will use to read every element of the coordinates
-	$bcounter = 0;
+		// store the mysql column "coordinates" data in the $coordstring variable
+		$bcoordstring = $brow["coordinates"];
+        	// Parse individual elements of the coordinates string into an array
+		$bcoordinates = explode("," , $bcoordstring);
+        	// how big is our array?
+		$bsize = count($bcoordinates) ;
+        	// set a counter which we will use to read every element of the coordinates
+		$bcounter = 0;
 
 		// read precisely the number of coordinate elements and parse the coordinate elements into either longitude or latitude (the coordinates string always starts with longitude then latitude)
 		while ($bsize > $bcounter ){
@@ -212,7 +210,7 @@ while ($numbfips < $bfipscount) {
 				$blatitude[] = $bcoordinates[$bcounter];
 				// finished with this element time to increment counter and run the loop again with the next value
 				$bcounter++ ;
-		}  
+			}  
 		}
 	}
 
@@ -265,10 +263,10 @@ while ($bcounter4 < $bfipscount) {
     //close the first while loop (processing of counties)
 }
 // ************************************************ finished with background fips section **************************************
-	// Close up this block of script code
-	echo "}\n";
+// Close up this block of script code
+echo "}\n";
 
-	//close the first script
+//close the first script
  echo "</script>\n";	  
 ?>
     <script async defer src="Put Your Google Maps Javascript API Key Here.">
