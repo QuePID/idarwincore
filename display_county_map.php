@@ -77,7 +77,7 @@ $counter = 0;
 while ($numfips < $fipscount) {
 
 	//this is the name of the county currently being processed
-        $processfips[] = $fipslist[$numfips];
+        $processfips = $fipslist[$numfips];
   	
 	//build query string using the currently designated county (courtesy of the $processcounty variable)
 	$query = "SELECT * FROM `counties` WHERE `fips` = \"$processfips\"";
@@ -256,7 +256,7 @@ $bcounter4 = '0';
 while ($bcounter4 < $bfipscount) {
 	
 	//defines new county list (eg county1, county2, county3) array so we can display as (eg county1, county2, county3)
-	$bfipslist[] = $bfips[$bcounter4];
+	$bfipslist = $bfips[$bcounter4];
     //create new map polygon
 	echo "var bfipspoly" . $bcounter4 . " = new google.maps.Polygon({\n";	
 	echo "\tpaths: " . "bfips" . $bcounter4 . ",\n";
